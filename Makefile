@@ -46,5 +46,11 @@ include $(SDK)/C_API/buildsupport/common.mk
 run: pdc
 	open -a $(SDK)/bin/Playdate\ Simulator.app $(PRODUCT)
 
-watch: run
-	watchman-make -p src/**/* -t run
+testex: __tests__/*.c src/lib/*.c
+	clang -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka __tests__/*.c src/lib/*.c -o test
+
+test: testex
+	./test
+
+watch: test run
+	watchman-make -p src/**/* __tests__/**/* -t test -p src/**/* -t run
