@@ -7,7 +7,7 @@ jobs:
       - run: brew install wget
       - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-latest.zip
       - run: unzip PlaydateSDK-latest.zip
-      - run: installer -pkg PlaydateSDK-*.pkg -target /
+      - run: sudo installer -pkg PlaydateSDK-*.pkg -target /
       - run: brew install cmake
       - uses: actions/checkout@v2
       - run: make
