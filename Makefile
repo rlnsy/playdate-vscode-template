@@ -21,7 +21,7 @@ endif
 VPATH += src
 
 # List C source files here
-SRC = src/main.c
+SRC = src/main.c src/lib/_event_handler_.c
 
 # List all user directories here
 UINCDIR = 
@@ -47,10 +47,10 @@ run: pdc
 	open -a $(SDK)/bin/Playdate\ Simulator.app $(PRODUCT)
 
 testex: __tests__/*.c src/lib/*.c
-	clang -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka __tests__/*.c src/lib/*.c -o test
+	clang -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka -I__tests__ __tests__/*.c src/lib/*.c -o test
 
 test: testex
 	./test
 
 watch: test run
-	watchman-make -p src/**/* __tests__/**/* -t test -p src/**/* -t run
+	watchman-make -p src/**/* __tests__/**/* -t test -p src/lib/* -t run
