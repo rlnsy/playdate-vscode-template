@@ -38,7 +38,7 @@ int y = (240 - TEXT_HEIGHT) / 2;
 int dx = 1;
 int dy = 2;
 
-static int _update_(void *userdata)
+int _update_(void *userdata)
 {
     PlaydateAPI *pd = userdata;
 
