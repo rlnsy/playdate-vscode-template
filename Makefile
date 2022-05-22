@@ -47,7 +47,7 @@ run: pdc
 	open -a $(SDK)/bin/Playdate\ Simulator.app $(PRODUCT)
 
 testex: __tests__/*.c src/lib/*.c
-	clang -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka -I__tests__ __tests__/*.c src/lib/*.c -o test
+	gcc -DTARGET_EXTENSION -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka -I$(SDK)/C_API __tests__/*.c src/lib/*.c -o test
 
 test: testex
 	./test
