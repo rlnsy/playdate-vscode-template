@@ -1,0 +1,1 @@
+void assert_string_contains(char *str, char *substring);
