@@ -46,7 +46,7 @@ include $(SDK)/C_API/buildsupport/common.mk
 run: pdc
 	open -a $(SDK)/bin/Playdate\ Simulator.app $(PRODUCT)
 
-testex: src/lib/*.c src/lib/__tests__/**/*.c
+testex: src/lib/*.c src/lib/__tests__/*.c src/lib/__tests__/**/*.c
 	gcc -DTARGET_EXTENSION -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka -I$(SDK)/C_API src/lib/__tests__/*.c src/lib/__tests__/**/*.c src/lib/*.c -o test
 
 test: testex
