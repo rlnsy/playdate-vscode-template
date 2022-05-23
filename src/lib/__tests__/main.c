@@ -5,7 +5,6 @@
 #include <cmocka.h>
 #include "_mocks_.h"
 #include "pd_api.h"
-#include "../_lib_.h"
 #include "../_event_handler_.h"
 
 static void test_init_event(void **state)
