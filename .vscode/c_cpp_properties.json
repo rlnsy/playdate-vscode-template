@@ -3,15 +3,18 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "~/Developer/PlaydateSDK/C_API", // TODO
+                "/opt/homebrew/Cellar/cmocka/1.1.5/include", // TODO,
             ],
-            "defines": [],
+            "defines": [
+                "TARGET_EXTENSION"
+            ],
             "macFrameworkPath": [],
             "compilerPath": "/usr/local/bin/arm-none-eabi-gcc",
             "cStandard": "gnu17",
             "cppStandard": "gnu++14",
             "intelliSenseMode": "macos-gcc-arm",
-            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4
