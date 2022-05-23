@@ -31,4 +31,7 @@ void _event_handler_test_init_event_error(void **state)
 
     // should have errored
     assert_error_state("Couldn't load font");
+
+    // update function still set
+    assert_ptr_equal(__get_update_callback_(), &_update_);
 }
