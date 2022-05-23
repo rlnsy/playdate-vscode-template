@@ -46,11 +46,14 @@ include $(SDK)/C_API/buildsupport/common.mk
 run: pdc
 	open -a $(SDK)/bin/Playdate\ Simulator.app $(PRODUCT)
 
-testex: src/lib/*.c src/lib/__tests__/*.c src/lib/__tests__/**/*.c
-	gcc -DTARGET_EXTENSION -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka -I$(SDK)/C_API src/lib/__tests__/*.c src/lib/__tests__/**/*.c src/lib/*.c -o test
+.temp:
+	mkdir .temp
+
+testex: src/lib/*.c src/lib/__tests__/*.c src/lib/__tests__/**/*.c .temp
+	gcc -DTARGET_EXTENSION -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka -I$(SDK)/C_API src/lib/__tests__/*.c src/lib/__tests__/**/*.c src/lib/*.c -o ./.temp/test
 
 test: testex
-	./test
+	./.temp/test
 
 watch: test run
 	watchman-make -p src/**/* src/lib/__tests__/* src/lib/__tests__/**/* -t test -p  src/* src/lib/* -t run
