@@ -35,3 +35,9 @@ void _event_handler_test_init_event_error(void **state)
     // update function still set
     assert_ptr_equal(__get_update_callback_(), &_update_);
 }
+
+void _update_handler_test(void **state)
+{
+    _update_((void *)&__mock_PlaydateAPI);
+    __lcd_print(0, 0);
+}

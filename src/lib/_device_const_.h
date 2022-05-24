@@ -1,0 +1,2 @@
+#define PD_SCREEN_HEIGHT 240
+#define PD_SCREEN_WIDTH 400
