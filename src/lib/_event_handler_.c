@@ -7,8 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "_event_handler_.h"
+#include "_device_const_.h"
+#include "_app_const_.h"
 
-const char *fontpath = "/System/Fonts/Asheville-Sans-14-Bold.pft";
+const char *fontpath = FONT;
 LCDFont *font = NULL;
 
 int _event_handler_(PlaydateAPI *pd, PDSystemEvent event, uint32_t arg)
@@ -30,13 +32,10 @@ int _event_handler_(PlaydateAPI *pd, PDSystemEvent event, uint32_t arg)
     return 0;
 }
 
-#define TEXT_WIDTH 86
-#define TEXT_HEIGHT 16
-
-int x = (400 - TEXT_WIDTH) / 2;
-int y = (240 - TEXT_HEIGHT) / 2;
-int dx = 1;
-int dy = 2;
+int x = X0;
+int y = Y0;
+int dx = DX;
+int dy = DY;
 
 int _update_(void *userdata)
 {

@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <cmocka.h>
 
+#include "../_app_const_.h"
 #include "../_event_handler_.h"
 #include "_util_/_mocks_.h"
 
@@ -16,7 +17,7 @@ void _event_handler_test_init_event(void **state)
     _event_handler_(&__mock_PlaydateAPI, kEventInit, 0);
 
     // should set font path
-    assert_string_equal(font.path, "/System/Fonts/Asheville-Sans-14-Bold.pft");
+    assert_string_equal(font.path, FONT);
 
     // and update function should be set
     assert_ptr_equal(__get_update_callback_(), &_update_);
