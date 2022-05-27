@@ -21,7 +21,7 @@ endif
 VPATH += src
 
 # List C source files here
-SRC = src/main.c src/lib/_event_handler_.c
+SRC = src/main.c src/lib/_event_handler_.c src/lib/_state_.c src/lib/_update_.c
 
 # List all user directories here
 UINCDIR = 

@@ -4,9 +4,11 @@
 #include <stdint.h>
 #include <cmocka.h>
 
+#include "_mocks_.h"
+
 #include "../_app_const_.h"
 #include "../_event_handler_.h"
-#include "_mocks_.h"
+#include "../_update_.h"
 
 #define PD_API (&__mock_PlaydateAPI)
 
@@ -19,7 +21,7 @@ void _event_handler_test_init(void **state)
     will_return(__mock_graphics_loadFont, &font);
 
     expect_function_call(__mock_system_setUpdateCallback);
-    expect_value(__mock_system_setUpdateCallback, update, &_update_);
+    expect_value(__mock_system_setUpdateCallback, update, &_app_update_);
 
     _event_handler_(PD_API, kEventInit, 0);
 }
@@ -33,12 +35,12 @@ void _event_handler_test_init_font_error(void **state)
     expect_function_call(__mock_system_error);
 
     expect_function_call(__mock_system_setUpdateCallback);
-    expect_value(__mock_system_setUpdateCallback, update, &_update_);
+    expect_value(__mock_system_setUpdateCallback, update, &_app_update_);
 
     _event_handler_(PD_API, kEventInit, 0);
 }
 
-void _update_test_first(void **state)
+void _app_update_test_first(void **state)
 {
     // setup: do init event
     expect_function_call(__mock_graphics_loadFont);
@@ -46,7 +48,7 @@ void _update_test_first(void **state)
     will_return(__mock_graphics_loadFont, &font);
 
     expect_function_call(__mock_system_setUpdateCallback);
-    expect_value(__mock_system_setUpdateCallback, update, &_update_);
+    expect_value(__mock_system_setUpdateCallback, update, &_app_update_);
 
     _event_handler_(PD_API, kEventInit, 0);
 
@@ -69,7 +71,7 @@ void _update_test_first(void **state)
     expect_value(__mock_system_drawFPS, x, 0);
     expect_value(__mock_system_drawFPS, y, 0);
 
-    _update_(PD_API);
+    _app_update_(PD_API);
 }
 
 int main(void)
@@ -83,10 +85,10 @@ int main(void)
     };
     status += cmocka_run_group_tests_name("_event_handler_", _event_handler_tests, NULL, NULL);
 
-    const struct CMUnitTest _update_tests[] = {
-        cmocka_unit_test(_update_test_first),
+    const struct CMUnitTest _app_update_tests[] = {
+        cmocka_unit_test(_app_update_test_first),
     };
-    status += cmocka_run_group_tests_name("_update_", _update_tests, NULL, NULL);
+    status += cmocka_run_group_tests_name("_app_update_", _app_update_tests, NULL, NULL);
 
     return status;
 }
