@@ -1,3 +1,5 @@
+#include "_device_const_.h"
+
 #define TEXT_WIDTH 86
 #define TEXT_HEIGHT 16
 #define DX 1
