@@ -49,8 +49,8 @@ run: pdc
 .temp:
 	mkdir .temp
 
-testex: src/lib/*.c src/lib/__tests__/*.c src/lib/__tests__/**/*.c .temp
-	gcc -DTARGET_EXTENSION -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka -I$(SDK)/C_API src/lib/__tests__/*.c src/lib/__tests__/**/*.c src/lib/*.c -o ./.temp/test
+testex: src/lib/*.c src/lib/__tests__/*.c .temp
+	gcc -DTARGET_EXTENSION -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka -I$(SDK)/C_API src/lib/__tests__/*.c src/lib/*.c -o ./.temp/test
 
 test: testex
 	./.temp/test
