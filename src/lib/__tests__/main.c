@@ -132,6 +132,41 @@ void _app_update_test_right_edge(void **state)
     assert_int_equal(dy, 0);
 }
 
+void _app_update_test_left_edge(void **state)
+{
+    __Test_State_ _state_ = *((__Test_State_ *)state);
+
+    x = 0;
+    dx = -DX;
+    y = LCD_ROWS / 2;
+    dy = 0;
+
+    expect_function_call(__mock_graphics_clear);
+    expect_value(__mock_graphics_clear, color, kColorWhite);
+
+    expect_function_call(__mock_graphics_setFont);
+    expect_value(__mock_graphics_setFont, font, _state_.font_to_load);
+
+    expect_function_call(__mock_graphics_drawText);
+    expect_any(__mock_graphics_drawText, text);
+    expect_any(__mock_graphics_drawText, len);
+    expect_any(__mock_graphics_drawText, encoding);
+    expect_any(__mock_graphics_drawText, x);
+    expect_any(__mock_graphics_drawText, y);
+    will_return(__mock_graphics_drawText, 0);
+
+    expect_function_call(__mock_system_drawFPS);
+    expect_any(__mock_system_drawFPS, x);
+    expect_any(__mock_system_drawFPS, y);
+
+    _app_update_(PD_API);
+
+    assert_int_equal(x, -DX);
+    assert_int_equal(y, LCD_ROWS / 2);
+    assert_int_equal(dx, DX);
+    assert_int_equal(dy, 0);
+}
+
 void _app_update_test_bottom_edge(void **state)
 {
     __Test_State_ _state_ = *((__Test_State_ *)state);
@@ -167,6 +202,41 @@ void _app_update_test_bottom_edge(void **state)
     assert_int_equal(dy, -DY);
 }
 
+void _app_update_test_top_edge(void **state)
+{
+    __Test_State_ _state_ = *((__Test_State_ *)state);
+
+    x = LCD_COLUMNS / 2;
+    dx = 0;
+    y = 0;
+    dy = -DY;
+
+    expect_function_call(__mock_graphics_clear);
+    expect_value(__mock_graphics_clear, color, kColorWhite);
+
+    expect_function_call(__mock_graphics_setFont);
+    expect_value(__mock_graphics_setFont, font, _state_.font_to_load);
+
+    expect_function_call(__mock_graphics_drawText);
+    expect_any(__mock_graphics_drawText, text);
+    expect_any(__mock_graphics_drawText, len);
+    expect_any(__mock_graphics_drawText, encoding);
+    expect_any(__mock_graphics_drawText, x);
+    expect_any(__mock_graphics_drawText, y);
+    will_return(__mock_graphics_drawText, 0);
+
+    expect_function_call(__mock_system_drawFPS);
+    expect_any(__mock_system_drawFPS, x);
+    expect_any(__mock_system_drawFPS, y);
+
+    _app_update_(PD_API);
+
+    assert_int_equal(x, LCD_COLUMNS / 2);
+    assert_int_equal(y, -DY);
+    assert_int_equal(dx, 0);
+    assert_int_equal(dy, DY);
+}
+
 int main(void)
 {
 
@@ -181,7 +251,9 @@ int main(void)
     const struct CMUnitTest _app_update_tests[] = {
         cmocka_unit_test_setup(_app_update_test_normal, _setup_update_test_),
         cmocka_unit_test_setup(_app_update_test_right_edge, _setup_update_test_),
+        cmocka_unit_test_setup(_app_update_test_left_edge, _setup_update_test_),
         cmocka_unit_test_setup(_app_update_test_bottom_edge, _setup_update_test_),
+        cmocka_unit_test_setup(_app_update_test_top_edge, _setup_update_test_),
     };
     status += cmocka_run_group_tests_name("_app_update_", _app_update_tests, NULL, NULL);
 
