@@ -9,6 +9,7 @@ jobs:
       - run: unzip PlaydateSDK-latest.zip
       - run: sudo installer -pkg PlaydateSDK-*.pkg -target /
       - run: brew install cmake
+      - run: brew install cmocka
       - uses: actions/checkout@v2
       - run: make
       - run: make test
