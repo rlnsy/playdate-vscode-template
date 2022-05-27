@@ -4,5 +4,9 @@
 #include "pd_api.h"
 
 LCDFont *font;
+int x;
+int y;
+int dx;
+int dy;
 
 #endif

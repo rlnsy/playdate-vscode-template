@@ -3,11 +3,6 @@
 #include "_app_const_.h"
 #include "_state_.h"
 
-int x = X0;
-int y = Y0;
-int dx = DX;
-int dy = DY;
-
 int _app_update_(void *userdata)
 {
     PlaydateAPI *pd = userdata;
