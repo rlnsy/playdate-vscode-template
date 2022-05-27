@@ -1,7 +1,7 @@
 name: checks
 on: [push]
 jobs:
-  build:
+  build_test:
     runs-on: macos-11
     steps:
       - run: brew install wget
@@ -11,3 +11,4 @@ jobs:
       - run: brew install cmake
       - uses: actions/checkout@v2
       - run: make
+      - run: make test
