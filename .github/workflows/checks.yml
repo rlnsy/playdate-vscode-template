@@ -15,7 +15,7 @@ jobs:
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: unzip *.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
-      - run: sudo installer -pkg PlaydateSDK-*.pkg -target /
+      - run: sudo installer -pkg PlaydateSDK.pkg -target /
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: brew install cmocka
       - uses: actions/checkout@v2
