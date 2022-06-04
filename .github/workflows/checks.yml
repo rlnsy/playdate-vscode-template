@@ -13,7 +13,7 @@ jobs:
         with:
           path: |
             ${{env.PLAYDATE_SDK_PATH}}
-            ${{env.LOCAL_BIN_DIR}}
+            PlaydateSDK.pkg
           key: PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}
       - run: brew install tree && tree
       - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.zip
@@ -21,11 +21,6 @@ jobs:
       - run: unzip *.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: sudo installer -pkg PlaydateSDK.pkg -target /
-        if: steps.deps-pdsdk.outputs.cache-hit != 'true'
-      - run: mkdir ${{env.LOCAL_BIN_DIR}} && cp -v /usr/local/playdate/gcc-arm-none-eabi*/bin/* ${{env.LOCAL_BIN_DIR}}
-        if: steps.deps-pdsdk.outputs.cache-hit != 'true'
-      - run: cp -v ${{env.LOCAL_BIN_DIR}}/* /usr/local/bin/
-        if: steps.deps-pdsdk.outputs.cache-hit == 'true' 
       - run: brew install cmocka
       - uses: actions/checkout@v2
       - run: make
