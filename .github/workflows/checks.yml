@@ -7,23 +7,23 @@ jobs:
   build_test:
     runs-on: macos-11
     steps:
-      - run: whoami
       - uses: actions/cache@v3
         id: deps-pdsdk
         with:
           path: |
             ${{env.PLAYDATE_SDK_PATH}}
-            bin
+            /Users/runner/bin
           key: PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}
+      - run: brew install tree && tree
       - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: unzip *.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: sudo installer -pkg PlaydateSDK.pkg -target /
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
-      - run: mkdir bin && cp -v /usr/local/playdate/gcc-arm-none-eabi*/bin/* bin/
+      - run: mkdir /Users/runner/bin && cp -v /usr/local/playdate/gcc-arm-none-eabi*/bin/* bin/
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
-      - run: cp -v bin/* /usr/local/bin/
+      - run: cp -v /Users/runner/bin/* /usr/local/bin/
         if: steps.deps-pdsdk.outputs.cache-hit == 'true' 
       - run: brew install cmocka
       - uses: actions/checkout@v2
