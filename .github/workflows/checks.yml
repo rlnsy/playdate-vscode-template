@@ -23,7 +23,7 @@ jobs:
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: mkdir bin && cp /usr/local/playdate/gcc-arm-none-eabi*/bin/* bin/
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
-      - run: cp bin/* /usr/local/playdate/gcc-arm-none-eabi*/bin/
+      - run: mkdir -p cp bin/* /usr/local/bin/
         if: steps.deps-pdsdk.outputs.cache-hit == 'true' 
       - run: brew install cmocka
       - uses: actions/checkout@v2
