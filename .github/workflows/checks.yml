@@ -13,7 +13,7 @@ jobs:
           key: ${{env.playdate_sdk_version}}
       - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.playdate_sdk_version}}.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
-      - run: unzip PlaydateSDK-latest.zip
+      - run: unzip *.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: sudo installer -pkg PlaydateSDK-*.pkg -target /
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
