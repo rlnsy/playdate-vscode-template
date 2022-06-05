@@ -3,6 +3,7 @@ on: [push]
 env:
   PLAYDATE_SDK_VERSION: 1.11.0
   PLAYDATE_SDK_PATH: /Users/runner/Developer/PlaydateSDK
+  PLAYDATE_INSTALLER: /Users/runner/PlaydateSDK.pkg
 jobs:
   build_test:
     runs-on: macos-11
@@ -12,13 +13,13 @@ jobs:
         with:
           path: |
             ${{env.PLAYDATE_SDK_PATH}}
-            __MACOSX/._PlaydateSDK.pkg
+            ${{env.PLAYDATE_INSTALLER}}
           key: PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}
-      - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.zip
+      - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.zip -O ${{env.PLAYDATE_INSTALLER}}
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: unzip *.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
-      - run: sudo installer -pkg PlaydateSDK.pkg -target /
+      - run: sudo installer -pkg ${{env.PLAYDATE_INSTALLER}} -target /
       - run: brew install cmocka
       - uses: actions/checkout@v2
       - run: make
