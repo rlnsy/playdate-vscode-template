@@ -9,7 +9,6 @@ jobs:
   build_test:
     runs-on: macos-11
     steps:
-      - run: echo $HOMEBREW_PREFIX
       - uses: actions/cache@v3
         id: deps-pdsdk
         with:
@@ -21,8 +20,8 @@ jobs:
         id: deps-cmocka
         with:
           path: |
-            /opt/homebrew/lib/libcmocka*
-            /opt/homebrew/include/cmocka*
+            /opt/homebrew/lib
+            /opt/homebrew/include
           key: cmocka
       - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
