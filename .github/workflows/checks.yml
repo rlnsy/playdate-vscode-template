@@ -9,6 +9,7 @@ jobs:
   build_test:
     runs-on: macos-11
     steps:
+      -run: echo $HOMEBREW_PREFIX
       - uses: actions/cache@v3
         id: deps-pdsdk
         with:
