@@ -12,8 +12,8 @@ typedef struct
     int dy;
 } _App_State_;
 
-void _state_init_(_App_State_ *);
-void __real_state_init_(_App_State_ *);
+void _state_init_(PlaydateAPI *, _App_State_ *);
+void __real_state_init_(PlaydateAPI *, _App_State_ *);
 int __test_state_init_(void);
 
 #endif
