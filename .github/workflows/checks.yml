@@ -3,7 +3,6 @@ on: [push]
 env:
   PLAYDATE_SDK_VERSION: 1.11.0
   PLAYDATE_SDK_PATH: /Users/runner/Developer/PlaydateSDK
-  LOCAL_BIN_DIR: /Users/runner/bin
 jobs:
   build_test:
     runs-on: macos-11
@@ -13,9 +12,8 @@ jobs:
         with:
           path: |
             ${{env.PLAYDATE_SDK_PATH}}
-            PlaydateSDK.pkg
+            __MACOSX/._PlaydateSDK.pkg
           key: PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}
-      - run: brew install tree && tree
       - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
       - run: unzip *.zip
