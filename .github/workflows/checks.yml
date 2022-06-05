@@ -16,6 +16,13 @@ jobs:
             ${{env.PLAYDATE_SDK_PATH}}
             ${{env.PLAYDATE_INSTALLER}}
           key: PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}
+      - uses: actions/cache@v3
+        id: deps-cmocka
+        with:
+          path: |
+            /opt/homebrew/lib/libcmocka*
+            /opt/homebrew/include/cmocka*
+          key: cmocka
       - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
         working-directory: ${{env.HOME}} 
@@ -25,6 +32,7 @@ jobs:
       - run: sudo installer -pkg ${{env.PLAYDATE_INSTALLER}} -target /
         working-directory: ${{env.HOME}} 
       - run: brew install cmocka
+        if: steps.deps-cmocka.outputs.cache-hit != 'true'
       - uses: actions/checkout@v2
       - run: make
       - run: make test
