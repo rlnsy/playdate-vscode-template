@@ -15,8 +15,10 @@ jobs:
           key: PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}
       - run: wget https://download.panic.com/playdate_sdk/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
+        working-directory: /Users/runner
       - run: unzip *.zip
         if: steps.deps-pdsdk.outputs.cache-hit != 'true'
+        working-directory: /Users/runner
       - run: sudo installer -pkg ${{env.PLAYDATE_INSTALLER}} -target /
       - run: brew install cmocka
       - uses: actions/checkout@v2
