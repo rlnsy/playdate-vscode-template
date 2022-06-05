@@ -6,6 +6,7 @@
 
 #include "../_event_handler_.h"
 #include "../_update_.h"
+#include "../_state_.h"
 
 int main(void)
 {
@@ -14,6 +15,7 @@ int main(void)
 
 #define RUN_TEST(_t_) status += _t_();
 
+    RUN_TEST(__test_state_init_);
     RUN_TEST(__test_event_handler);
     RUN_TEST(__test_update_position_velocity);
     RUN_TEST(__test_app_update);

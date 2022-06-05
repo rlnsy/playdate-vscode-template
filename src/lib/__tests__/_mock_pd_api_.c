@@ -56,10 +56,17 @@ void __mock_system_error(const char *fmt, ...)
     function_called();
 }
 
+void __mock_system_logToConsole(const char *fmt, ...)
+{
+    function_called();
+}
+
 struct playdate_sys __mock_playdate_system = {
     .error = (void (*)(const char *, ...)) & __mock_system_error,
     .setUpdateCallback = &__mock_system_setUpdateCallback,
-    .drawFPS = &__mock_system_drawFPS};
+    .drawFPS = &__mock_system_drawFPS,
+    .logToConsole = &__mock_system_logToConsole,
+};
 
 struct playdate_graphics __mock_playdate_graphics = {
     .loadFont = &__mock_graphics_loadFont,

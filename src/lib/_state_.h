@@ -3,10 +3,17 @@
 
 #include "pd_api.h"
 
-LCDFont *font;
-int x;
-int y;
-int dx;
-int dy;
+typedef struct
+{
+    LCDFont *font;
+    int x;
+    int y;
+    int dx;
+    int dy;
+} _App_State_;
+
+void _state_init_(_App_State_ *);
+void __real_state_init_(_App_State_ *);
+int __test_state_init_(void);
 
 #endif

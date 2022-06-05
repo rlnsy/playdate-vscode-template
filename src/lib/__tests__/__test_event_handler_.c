@@ -16,21 +16,20 @@ typedef struct
     LCDFont *font_to_load;
 } __Test_State_;
 
-int _setup_event_handler_tests_(void **state)
+void _state_init_(_App_State_ *_state_)
 {
-    __Test_State_ *_state_ = (__Test_State_ *)state;
-    static LCDFont _font_to_load;
-    _state_->font_to_load = &_font_to_load;
-    return 0;
+    function_called();
 }
 
 void _event_handler_test_init(void **state)
 {
-    __Test_State_ _state_ = *((__Test_State_ *)state);
+    LCDFont font_to_load;
+
+    expect_function_call(_state_init_);
 
     expect_function_call(__mock_graphics_loadFont);
     expect_string(__mock_graphics_loadFont, path, FONT);
-    will_return(__mock_graphics_loadFont, _state_.font_to_load);
+    will_return(__mock_graphics_loadFont, &font_to_load);
 
     expect_function_call(__mock_system_setUpdateCallback);
     expect_value(__mock_system_setUpdateCallback, update, &_app_update_);
@@ -40,6 +39,8 @@ void _event_handler_test_init(void **state)
 
 void _event_handler_test_init_font_error(void **state)
 {
+    expect_function_call(_state_init_);
+
     expect_function_call(__mock_graphics_loadFont);
     expect_string(__mock_graphics_loadFont, path, FONT);
     will_return(__mock_graphics_loadFont, NULL);
@@ -58,5 +59,5 @@ int __test_event_handler(void)
         cmocka_unit_test(_event_handler_test_init),
         cmocka_unit_test(_event_handler_test_init_font_error),
     };
-    return cmocka_run_group_tests_name("_event_handler_", _event_handler_tests, _setup_event_handler_tests_, NULL);
+    return cmocka_run_group_tests_name("_event_handler_", _event_handler_tests, NULL, NULL);
 }
