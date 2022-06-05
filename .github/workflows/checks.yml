@@ -3,8 +3,8 @@ on: [push]
 env:
   PLAYDATE_SDK_VERSION: 1.11.0
   HOME: /Users/runner 
-  PLAYDATE_SDK_PATH: ${{env.HOME}}/Developer/PlaydateSDK
-  PLAYDATE_INSTALLER: ${{env.HOME}}/PlaydateSDK-${{env.PLAYDATE_SDK_VERSION}}.pkg
+  PLAYDATE_SDK_PATH: /Users/runner/Developer/PlaydateSDK
+  PLAYDATE_INSTALLER: /Users/runner/PlaydateSDK-1.11.0.pkg
 jobs:
   build_test:
     runs-on: macos-11
